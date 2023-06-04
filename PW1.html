@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Contoh Program HTML</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 20px;
+      background-color: #f9f9f9;
+      background-image: url('https://images.pexels.com/photos/19670/pexels-photo.jpg');
+      background-size: cover;
+    }
+    
+    h1 {
+      color: #333;
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 30px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    p {
+      margin-bottom: 10px;
+      color: #555;
+    }
+    
+    a {
+      color: #007bff;
+      margin-right: 10px;
+      text-decoration: none;
+    }
+    
+    input[type="file"] {
+      margin-bottom: 10px;
+    }
+    
+    button {
+      padding: 8px 12px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    img {
+      max-width: 100%;
+      display: block;
+      margin-top: 10px;
+      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    .file-actions {
+      margin-top: 20px;
+      text-align: center;
+    }
+    
+    .file-actions a {
+      margin-right: 10px;
+      padding: 8px 12px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      text-decoration: none;
+      border-radius: 4px;
+      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-bottom: 30px;
+    }
+    
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
+    
+    ul {
+      padding-left: 20px;
+      margin-bottom: 30px;
+    }
+    
+    li {
+      margin-bottom: 5px;
+      color: #666;
+    }
+    
+    .tambahkan {
+      background-color: #28a745;
+    }
+  </style>
+</head>
+<body>
+  <h1>Mark Zuckerberg</h1>
+  
+  <p>Mark Zuckerberg adalah seorang pengusaha dan salah satu pendiri Facebook, platform media sosial terbesar di dunia. Dia lahir pada tahun 1984 di White Plains, New York. Zuckerberg memulai Facebook saat masih kuliah di Universitas Harvard pada tahun 2004, dan platform tersebut segera mendapatkan popularitas global. Sebagai CEO Facebook, ia telah menjadi salah satu tokoh paling terkenal dan berpengaruh di dunia teknologi.</p>
+  
+  <p>Ini Adalah Biodata Beliau: <a href="https://en.wikipedia.org/wiki/Mark_Zuckerberg">Klik di sini!</a></p>
+  
+  <input type="file" id="gambarInput">
+  <button onclick="tampilkanGambar()">Tampilkan Gambar</button>
+  
+  <img id="gambar" src="" alt="Gambar Tidak Tersedia">
+  
+  <div id="fileActions" class="file-actions">
+    <a id="downloadLink" href="#" download>Download</a>
+    <a id="deleteLink" href="#" onclick="hapusGambar()">Delete</a>
+  </div>
+  
+  <h2>Keluarga Mark (ayah - Ibu) </h2>
+  <table>
+    <tr>
+      <th>Nama</th>
+      <th>Umur</th>
+      <th>Aksi</th>
+    </tr>
+    <tr>
+      <td>Edward Zuckerberg</td>
+      <td>76</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Karen Kempner</td>
+      <td>64</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td colspan="3" style="text-align: center;">
+        <button class="tambahkan" onclick="tambahBaris()">Tambahkan</button>
+      </td>
+    </tr>
+  </table>
+  
+  <h2>Saudaranya Mark </h2>
+  <ul>
+    <li>Randi Zuckerberg</li>
+    <li>Donna Zuckerberg</li>
+    <li>Arielle Zuckerberg</li>
+    <li><button onclick="tambahItem()">Tambahkan</button></li>
+  </ul>
+  
+  <script>
+    var selectedFile;
+    
+    function tampilkanGambar() {
+      var gambarInput = document.getElementById("gambarInput");
+      var imgElement = document.getElementById("gambar");
+      var fileActions = document.getElementById("fileActions");
+      
+      selectedFile = gambarInput.files[0];
+      
+      var reader = new FileReader();
+      
+      reader.onload = function(e) {
+        imgElement.src = e.target.result;
+        imgElement.alt = "Gambar";
+        
+        fileActions.style.display = "block";
+        document.getElementById("downloadLink").href = e.target.result;
+      };
+      
+      reader.readAsDataURL(selectedFile);
+    }
+    
+    function hapusGambar() {
+      if (selectedFile) {
+        var confirmation = confirm("Apakah Anda yakin ingin menghapus gambar?");
+        
+        if (confirmation) {
+          selectedFile = null;
+          document.getElementById("gambar").src = "";
+          document.getElementById("gambar").alt = "Gambar Tidak Tersedia";
+          document.getElementById("fileActions").style.display = "none";
+        }
+      }
+    }
+    
+    function tambahBaris() {
+      var table = document.querySelector("table");
+      
+      var row = table.insertRow(table.rows.length - 1);
+      
+      var cell1 = row.insertCell(0);
+      var cell2 = row.insertCell(1);
+      var cell3 = row.insertCell(2);
+      
+      cell1.innerHTML = "<input type='text'>";
+      cell2.innerHTML = "<input type='number'>";
+      cell3.innerHTML = "<button onclick='hapusBaris(this)'>Hapus</button>";
+    }
+    
+    function hapusBaris(button) {
+      var row = button.parentNode.parentNode;
+      row.parentNode.removeChild(row);
+    }
+    
+    function tambahItem() {
+      var list = document.querySelector("ul");
+      var listItem = document.createElement("li");
+      listItem.textContent = "Item Baru";
+      list.appendChild(listItem);
+    }
+  </script>
+</body>
+</html>
